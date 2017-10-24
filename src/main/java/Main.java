@@ -6,23 +6,11 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args){
-        CLI_Interface.welcomeMessage();
+        CLI_Logic.introLogic();
 
-        Scanner scanner = new Scanner(System.in);
-        CLI_Interface.printIntroMenu(scanner.nextLine());
-
-        if ("Yes".equalsIgnoreCase(scanner.nextLine())) {
-            System.out.println("Please enter account type:");
-            String type = scanner.nextLine();
-            System.out.println("Please enter a balance");
-            double balance = scanner.nextDouble();
-            Account account = new Account(type, balance);
-            System.out.println(account.toString());
-
-        }
 
 
 
-    }
+        }
 }
 
