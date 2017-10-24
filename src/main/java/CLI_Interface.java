@@ -29,7 +29,8 @@ public class CLI_Interface{
     public static void createNewUser() {
             String username = CLI_Interface.getStringInput("Enter a user name.");
             String password = CLI_Interface.getStringInput("Enter a user password.");
-            UserFactory.addNewUser(username, password);
+            User user = new User(username, password);
+            UserFactory.addNewUser(user);
             String message = "Your username is " + username
             + "\nYour password is " + password;
             System.out.println(message);

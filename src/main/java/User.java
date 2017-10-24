@@ -28,7 +28,13 @@ public class User {
         return password;
     }
 
-    protected ArrayList<Account> getAccounts() {
-        return accounts;
+    protected String getAccounts() {
+        String output = "";
+        for (Account account : accounts) {
+            output += "Account Number: " + account.getAccountNumber()
+                    + ", Account Type: " + account.getAccountType()
+                    + ", Account Balance: " + String.format("$%,.2f", account.getBalance()) + "\n";
+        }
+        return output;
     }
 }

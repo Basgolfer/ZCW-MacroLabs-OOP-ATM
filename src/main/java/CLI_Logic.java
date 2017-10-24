@@ -1,6 +1,15 @@
 public class CLI_Logic {
     private static String currentUsername;
     private static String currentPassword;
+    private static User currentUser;
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(User currentUser) {
+        CLI_Logic.currentUser = currentUser;
+    }
 
     public static String getCurrentUsername() {
         return CLI_Logic.currentUsername;
@@ -43,6 +52,7 @@ public class CLI_Logic {
 
         for (User user : UserWarehouse.getUsers()) {
             if (currentUser.equalsIgnoreCase(user.getUsername()) && currentPassword.equals(user.getPassword())) {
+                setCurrentUser(user);
                 CLI_Interface.printIntroMenu();
                 accountFound = true;
             }
@@ -63,25 +73,32 @@ public class CLI_Logic {
     }
 
     public static void addAccountToUser(String accountType, double balance) {
-        String currentUser = CLI_Logic.getCurrentUsername();
-        for (User user : UserWarehouse.getUsers()) {
-            if (currentUser.equalsIgnoreCase(user.getUsername())) {
-                user.createAccount(accountType, balance);
-            }
-        }
+        currentUser.createAccount(accountType, balance);
     }
 
     public static void menuSelection() {
         int selection = Integer.parseInt(CLI_Interface.getStringInput());
-        if (selection == 7) {
+        if (selection == 0) {
+            //Withdraw
+            System.out.println(currentUser.getAccounts());
+        }
+        else if (selection == 3) {
+            //Create new account object.
+            CLI_Interface.createNewBankAccount();
+            CLI_Logic.menuSelection();
+        }
+        else if (selection == 7)  {
             CLI_Logic.logout();
         }
+
+
     }
 
     public static void logout() {
         CLI_Interface.exitMessage();
         setCurrentUsername(null);
         setCurrentPassword(null);
+        setCurrentUser(null);
         CLI_Logic.introLogic();
     }
 }
