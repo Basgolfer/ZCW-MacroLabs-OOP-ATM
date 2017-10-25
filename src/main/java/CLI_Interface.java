@@ -72,4 +72,41 @@ public class CLI_Interface{
         System.out.println("Thanks for your business\n");
     }
 
+    private static Account getAccountAttempt() {
+        System.out.println(CLI_Logic.getCurrentUser().getAccounts());
+        int accountSelection = Integer.parseInt(CLI_Interface.getStringInput("Please choose an account number."));
+        Account account = CLI_Logic.getCurrentUser().getSpecificAccount(accountSelection);
+        if (account == null) {
+            System.err.println("Please choose a valid account number.");
+            account = CLI_Interface.getAccountAttempt();
+        }
+        return account;
+    }
+
+    public static void withdrawAttempt() {
+        Account account = CLI_Interface.getAccountAttempt();
+        System.out.println("Your current balance is " + String.format("$%,.2f", account.getBalance()));
+        double withdrawAmount = Double.parseDouble(
+                CLI_Interface.getStringInput("Please choose an amount to withdraw."));
+        double accountBalance = account.getBalance();
+
+        double newBalance = CLI_Interface.withdrawError(withdrawAmount, accountBalance);
+
+        account.setBalance(newBalance);
+
+        System.out.println("Your new balance is " + String.format("$%,.2f", newBalance) + "\n");
+    }
+
+    private static double withdrawError(double withdrawAmount, double accountBalance) {
+        if (withdrawAmount <= 0) {
+            withdrawAmount = Double.parseDouble(CLI_Interface.getStringInput("Please enter an amount greater than 0."));
+            withdrawAmount = withdrawError(withdrawAmount, accountBalance);
+        }
+        else if (withdrawAmount > accountBalance) {
+            withdrawAmount = Double.parseDouble(CLI_Interface.getStringInput("Insufficient funds, please enter a lower amount."));
+            withdrawAmount = withdrawError(withdrawAmount, accountBalance);
+        }
+        double newBalance = accountBalance - withdrawAmount;
+        return newBalance;
+    }
 }

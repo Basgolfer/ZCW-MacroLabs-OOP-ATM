@@ -80,7 +80,9 @@ public class CLI_Logic {
         int selection = Integer.parseInt(CLI_Interface.getStringInput());
         if (selection == 0) {
             //Withdraw
-            System.out.println(currentUser.getAccounts());
+            CLI_Interface.withdrawAttempt();
+            CLI_Interface.printIntroMenu();
+            CLI_Logic.menuSelection();
         }
         else if (selection == 3) {
             //Create new account object.
@@ -90,8 +92,6 @@ public class CLI_Logic {
         else if (selection == 7)  {
             CLI_Logic.logout();
         }
-
-
     }
 
     public static void logout() {

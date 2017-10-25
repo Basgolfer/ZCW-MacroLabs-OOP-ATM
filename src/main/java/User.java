@@ -5,6 +5,21 @@ public class User {
     private String password;
     private ArrayList<Account> accounts = new ArrayList<>();
 
+    public int getNumberOfAccounts() {
+        return accounts.size();
+    }
+
+    public Account getSpecificAccount(int index) {
+        Account output = null;
+        for (Account account : accounts) {
+            if (account.getAccountNumber() == index) {
+                output = account;
+                return output;
+            }
+        }
+        return output;
+    }
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;

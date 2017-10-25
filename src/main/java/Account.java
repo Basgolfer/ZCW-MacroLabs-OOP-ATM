@@ -11,6 +11,34 @@ public class Account {
         totalAccountNumber++;
     }
 
+    public static int getTotalAccountNumber() {
+        return totalAccountNumber;
+    }
+
+    public static void setTotalAccountNumber(int totalAccountNumber) {
+        Account.totalAccountNumber = totalAccountNumber;
+    }
+
+    public void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public ArrayList<String> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(ArrayList<String> transactions) {
+        this.transactions = transactions;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
     public Account(String accountType) {
         this(accountType, 0);
     }
