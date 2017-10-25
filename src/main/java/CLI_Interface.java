@@ -1,3 +1,5 @@
+import jdk.nashorn.internal.ir.WithNode;
+
 import java.util.Scanner;
 
 public class CLI_Interface{
@@ -85,28 +87,48 @@ public class CLI_Interface{
 
     public static void withdrawAttempt() {
         Account account = CLI_Interface.getAccountAttempt();
+        double newBalance = 0;
         System.out.println("Your current balance is " + String.format("$%,.2f", account.getBalance()));
         double withdrawAmount = Double.parseDouble(
                 CLI_Interface.getStringInput("Please choose an amount to withdraw."));
         double accountBalance = account.getBalance();
 
-        double newBalance = CLI_Interface.withdrawError(withdrawAmount, accountBalance);
-
-        account.setBalance(newBalance);
-
+            while (withdrawAmount <= 0 || withdrawAmount > accountBalance) {
+                if (withdrawAmount <= 0) {
+                    System.err.println("Please enter an amount greater than 0.");
+                }
+                else if (withdrawAmount > accountBalance) {
+                    System.err.println("Insufficient Funds.");
+                }
+                else {
+                    System.err.println("Error!");
+                }
+                withdrawAmount = Double.parseDouble(CLI_Interface.getStringInput("Enter an amount you would like to withdraw."));
+            }
+            newBalance = accountBalance - withdrawAmount;
+            account.setBalance(newBalance);
         System.out.println("Your new balance is " + String.format("$%,.2f", newBalance) + "\n");
     }
 
-    private static double withdrawError(double withdrawAmount, double accountBalance) {
-        if (withdrawAmount <= 0) {
-            withdrawAmount = Double.parseDouble(CLI_Interface.getStringInput("Please enter an amount greater than 0."));
-            withdrawAmount = withdrawError(withdrawAmount, accountBalance);
+    public static void depositAttempt() {
+        Account account = CLI_Interface.getAccountAttempt();
+        double newBalance = 0;
+        System.out.println("Your current balance is " + String.format("$%,.2f\n", account.getBalance()));
+        double depositAmount = Double.parseDouble(
+                CLI_Interface.getStringInput("Please choose an amount to deposit."));
+        double accountBalance = account.getBalance();
+
+        while (depositAmount <= 0) {
+            if (depositAmount <= 0) {
+                System.err.println("Please enter an amount greater than 0 to deposit.");
+            }
+            else {
+                System.err.println("Error!");
+            }
+            depositAmount = Double.parseDouble(CLI_Interface.getStringInput("Enter an amount you would like to deposit."));
         }
-        else if (withdrawAmount > accountBalance) {
-            withdrawAmount = Double.parseDouble(CLI_Interface.getStringInput("Insufficient funds, please enter a lower amount."));
-            withdrawAmount = withdrawError(withdrawAmount, accountBalance);
-        }
-        double newBalance = accountBalance - withdrawAmount;
-        return newBalance;
+        newBalance = accountBalance + depositAmount;
+        account.setBalance(newBalance);
+        System.out.println("Your new balance is " + String.format("$%,.2f", newBalance) + "\n");
     }
 }
