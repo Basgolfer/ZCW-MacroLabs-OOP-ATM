@@ -13,6 +13,7 @@ public class Atm_LogicTest {
         username = "brian";
         password = "1234";
         user = new User(username, password);
+        user.createAccount("Savings", 1000);
     }
 
     @Test
@@ -39,13 +40,6 @@ public class Atm_LogicTest {
         Assert.assertEquals(expected, actual);
     }
 
-
-
-
-
-
-
-
     @Test
     public void introLogicTest_InputYes() {
         String welcomeMessage = "Yes";
@@ -64,7 +58,7 @@ public class Atm_LogicTest {
 
     @Test
     public void loginTest() {
-        boolean expected = true;
-        boolean actual = true;
+        //Ask about this test.
+
     }
 }

@@ -28,4 +28,16 @@ public class UserWarehouseTest {
         Assert.assertEquals(expectedUsername, actualUsername);
         Assert.assertEquals(expectedPassword, actualPassword);
     }
+
+    @Test
+    public void doesUserExist() {
+        UserWarehouse.addUser(user);
+        boolean expected = true;
+        boolean actual = UserWarehouse.doesUserExist(user.getUsername(), user.getPassword());
+        Assert.assertEquals(expected, actual);
+    }
+
+
+
+
 }
