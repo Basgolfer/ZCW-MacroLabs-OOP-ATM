@@ -10,6 +10,11 @@ public class AtmLogic {
     public static void setCurrentPassword(String currentPassword) { AtmLogic.currentPassword = currentPassword; }
     public static String getCurrentPassword() { return AtmLogic.currentPassword; }
 
+
+
+
+
+
     public static void introLogic() {
         String welcomeMessage = CLI_Interface.welcomeMessage();
         if ("Yes".equalsIgnoreCase(welcomeMessage)) {

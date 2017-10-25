@@ -5,8 +5,24 @@ public class User {
     private String password;
     private ArrayList<Account> accounts = new ArrayList<>();
 
-    public int getNumberOfAccounts() {
-        return accounts.size();
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public String getUsername() { return username; }
+
+    public void setUsername(String username) { this.username = username; }
+
+    public void setPassword(String password) { this.password = password; }
+
+    public String getPassword() { return password;    }
+
+    public int getNumberOfAccounts() { return accounts.size(); }
+
+    protected void createAccount(String accountType, double balance) {
+        Account account = new Account(accountType, balance);
+        this.accounts.add(account);
     }
 
     public Account getSpecificAccount(int index) {
@@ -20,30 +36,11 @@ public class User {
         return output;
     }
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
+    public ArrayList<Account> getAccounts() {
+        return accounts;
     }
 
-    protected void createAccount(String accountType) {
-        Account account = new Account(accountType);
-        accounts.add(account);
-    }
-
-    protected void createAccount(String accountType, double balance) {
-        Account account = new Account(accountType, balance);
-        accounts.add(account);
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    protected String getAccounts() {
+    public String getAccountsToString() {
         String output = "";
         for (Account account : accounts) {
             output += "Account Number: " + account.getAccountNumber()
